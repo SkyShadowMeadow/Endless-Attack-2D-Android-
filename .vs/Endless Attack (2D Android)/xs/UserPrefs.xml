@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{C0F4736E-F381-C834-6417-22EF1D540FF5}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Bullet.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Player.cs" Line="28" Column="46" />
+      <File FileName="Assets/Scripts/Weapon.cs" Line="11" Column="31" />
+      <File FileName="Assets/Scripts/Pistol.cs" Line="10" Column="6" />
+      <File FileName="Assets/Scripts/Bullet.cs" Line="7" Column="53" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Endless Attack (2D Android)" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Bullet.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="b3770fd0-cc3f-4f5d-b08f-e9a44348f626" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
