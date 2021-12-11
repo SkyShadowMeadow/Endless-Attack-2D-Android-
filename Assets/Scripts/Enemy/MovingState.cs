@@ -8,9 +8,10 @@ public class MovingState : IState
     private readonly Enemy _enemy;
     private readonly float _speed;
     private readonly Transform _target;
-    private readonly int _isMoving = Animator.StringToHash("IsMoving");
+    private readonly int _isMoving = Animator.StringToHash("IsWalking");
 
-    private readonly float _minDistanceToTarget = 0.2f;
+    private readonly float _minDistanceToTarget = 0.6f;
+    private Vector2 _targetPosition;
 
     public MovingState(Animator animator, Enemy enemy, float speed, Transform target)
     {
@@ -23,6 +24,7 @@ public class MovingState : IState
     public void OnEnter()
     {
         _animator.SetBool(_isMoving, true);
+        _targetPosition = new Vector2(_target.transform.position.x, _enemy.transform.position.y);
     }
 
     public void OnExit()
@@ -33,9 +35,9 @@ public class MovingState : IState
     public void Tick()
     {
         _enemy.transform.position = Vector2.MoveTowards(_enemy.transform.position,
-                                            _target.position, _speed * Time.deltaTime);
+                                            _targetPosition, _speed * Time.deltaTime);
     }
 
     public bool HasTargetInRange() => Vector2.Distance(_enemy.transform.position,
-                                        _target.transform.position) > _minDistanceToTarget;
+                                        _targetPosition) > _minDistanceToTarget;
 }

@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         _rigidBody = GetComponent<Rigidbody2D>();
         _animationStatus = GetComponentInChildren<AnimationStatus>();
 
@@ -27,14 +27,16 @@ public class Enemy : MonoBehaviour
 
         IdlingState idlingState = new IdlingState(_animator);
         MovingState movingState = new MovingState(_animator, this, _speed, _target);
-        AttackState attackState = new AttackState();
+        AttackState attackState = new AttackState(_animator, this);
         DeathState deathState = new DeathState(_animator, this);
 
         At(idlingState, movingState, HasTargetInRange());
-        At(idlingState, movingState, HasDied());
         At(idlingState, deathState, HasDied());
         At(attackState, deathState, HasDied());
         At(movingState, attackState, HasReachedThePlayer());
+        At(movingState, deathState, HasDied());
+
+        _enemyStateMachine.SetState(idlingState);
 
         Func<bool> HasTargetInRange() => () => movingState.HasTargetInRange() && !_playerIsDead;
         Func<bool> HasDied() => () => GetLiveStatus();
@@ -54,21 +56,12 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     private bool GetLiveStatus() => _isDying;
 
-    public bool GetDeathAnimationStatus() => _animationStatus.GetDeathAnimationStatus;
+    public bool DeathAnimationStatus => _animationStatus.GetDeathAnimationStatus;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private void FixedUpdate() => _enemyStateMachine.Tick();
 }

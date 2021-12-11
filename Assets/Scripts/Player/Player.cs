@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     private int _currentHealth;
     private Weapon _currentWeapon;
 
+    public int money { get; private set; }
+
    
     private void Start()
     {
@@ -28,4 +30,6 @@ public class Player : MonoBehaviour
             _currentWeapon.Shoot(_shootPoint);
         }
     }
+
+    private void OnEnemyDied(int reward) => money += reward;
 }

@@ -20,12 +20,17 @@ public class DeathState : IState
 
     public void OnExit()
     {
+        Debug.Log("Go To Die");
+
         _enemy.Die();
     }
 
     public void Tick()
     {
-        if (_enemy.GetDeathAnimationStatus())
+        if (_enemy.DeathAnimationStatus)
+        {
+            Debug.Log("Go On Exit To Die");
             OnExit();
+        }
     }
 }
