@@ -5,8 +5,9 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health;
     [SerializeField] private int _reward;
-    [SerializeField] private Transform _target;
+    private Transform _target;
     [SerializeField] private float _speed;
+    [SerializeField] private float _damage;
 
     private Animator _animator;
     private Rigidbody2D _rigidBody;
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour
 
     private EnemyStateMachine _enemyStateMachine;
 
-    private void Awake()
+    private void Start()
     {
         _animator = GetComponentInChildren<Animator>();
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -43,10 +44,12 @@ public class Enemy : MonoBehaviour
         Func<bool> HasReachedThePlayer() => () => !movingState.HasTargetInRange() && !_playerIsDead;
 
         void At(IState to, IState from, Func<bool> condition) => _enemyStateMachine.AddTransition(to, from, condition);
-
-
     }
 
+    public void Init(Transform target)
+    {
+        _target = target;
+    }
     public void GetDamage(int damage)
     {
         _health -= damage;

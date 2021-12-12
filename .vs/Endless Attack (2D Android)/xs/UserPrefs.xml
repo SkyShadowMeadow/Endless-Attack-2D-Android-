@@ -1,29 +1,21 @@
 ﻿<Properties StartupConfiguration="{C0F4736E-F381-C834-6417-22EF1D540FF5}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy/MovingState.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy/Spawner.cs">
     <Files>
       <File FileName="Assets/Scripts/Player.cs" Line="34" Column="18" />
       <File FileName="Assets/Scripts/Enemy/IdlingState.cs" Line="5" Column="34" />
-      <File FileName="Assets/Scripts/Enemy/Enemy.cs" Line="22" Column="43" />
-      <File FileName="Assets/Scripts/Enemy/MovingState.cs" Line="38" Column="60" />
-      <File FileName="Assets/Scripts/Enemy/DeathState.cs" Line="15" Column="6" />
-      <File FileName="Assets/Scripts/Enemy/AnimationStatus.cs" Line="9" Column="40" />
-      <File FileName="Assets/Scripts/Enemy/AttackState.cs" Line="27" Column="6" />
+      <File FileName="Assets/Scripts/Enemy/Enemy.cs" Line="21" Column="23" />
+      <File FileName="Assets/Scripts/Enemy/MovingState.cs" Line="13" Column="54" />
+      <File FileName="Assets/Scripts/Enemy/DeathState.cs" Line="30" Column="1" />
+      <File FileName="Assets/Scripts/Enemy/AnimationStatus.cs" Line="9" Column="17" />
+      <File FileName="Assets/Scripts/Enemy/AttackState.cs" Line="9" Column="75" />
       <File FileName="Assets/Scripts/Combat/Bullet.cs" Line="21" Column="29" />
+      <File FileName="Assets/Scripts/Enemy/Spawner.cs" Line="44" Column="5" />
+      <File FileName="Assets/Scripts/Enemy/Wave.cs" Line="16" Column="48" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Endless Attack (2D Android)" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="Combat" expanded="True" />
-                <Node name="Enemy" expanded="True">
-                  <Node name="MovingState.cs" selected="True" />
-                </Node>
-                <Node name="Player" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
+          <Node name="Endless Attack (2D Android)" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
