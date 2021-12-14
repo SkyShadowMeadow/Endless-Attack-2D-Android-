@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private int _health;
+    [SerializeField] private int money = 0;
+
     [SerializeField] private List<Weapon> _weapons;
     [SerializeField] private Transform _shootPoint;
 
@@ -12,7 +14,6 @@ public class Player : MonoBehaviour
     private int _currentHealth;
     private Weapon _currentWeapon;
 
-    public int money { get; private set; }
 
    
     private void Start()
@@ -31,5 +32,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnEnemyDied(int reward) => money += reward;
+    public void AddMoney(int reward) => money += reward;
+
+    public void ApplyDamage(int damage)
+    {
+        _health -= damage;
+        if(_health <= 0)
+        {
+            Debug.Log("Player is dead");
+        }
+    }
 }

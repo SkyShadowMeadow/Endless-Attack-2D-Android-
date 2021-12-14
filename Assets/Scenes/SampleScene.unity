@@ -1043,6 +1043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 50
+  money: 0
   _weapons:
   - {fileID: 3282752615228672585, guid: 26e3711a2d1824353a1a7b5fdc62f738, type: 3}
   _shootPoint: {fileID: 661306679}
@@ -1243,7 +1244,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b982e9b84943c4238802ac9e5c74215c, type: 2}
   - {fileID: 11400000, guid: 086c62d68e63d4d23bb69dbd3fc66ca1, type: 2}
   - {fileID: 11400000, guid: b3700431d96f64c72a24da56978f0096, type: 2}
-  _target: {fileID: 779285310}
+  _target: {fileID: 779285312}
   _spawnPoint: {fileID: 894183189}
 --- !u!4 &894183189
 Transform:

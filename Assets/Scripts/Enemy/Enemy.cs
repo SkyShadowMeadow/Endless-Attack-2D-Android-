@@ -1,13 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health;
     [SerializeField] private int _reward;
-    private Transform _target;
+    public int Reward => _reward;
+    private Player _target;
     [SerializeField] private float _speed;
-    [SerializeField] private float _damage;
+    [SerializeField] private int _damage;
 
     private Animator _animator;
     private Rigidbody2D _rigidBody;
@@ -18,6 +20,8 @@ public class Enemy : MonoBehaviour
 
     private EnemyStateMachine _enemyStateMachine;
 
+    public event UnityAction<Enemy> OnEnemyDying;
+
     private void Start()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -27,7 +31,7 @@ public class Enemy : MonoBehaviour
         _enemyStateMachine = new EnemyStateMachine();
 
         IdlingState idlingState = new IdlingState(_animator);
-        MovingState movingState = new MovingState(_animator, this, _speed, _target);
+        MovingState movingState = new MovingState(_animator, this, _speed, _target.transform);
         AttackState attackState = new AttackState(_animator, this);
         DeathState deathState = new DeathState(_animator, this);
 
@@ -46,7 +50,7 @@ public class Enemy : MonoBehaviour
         void At(IState to, IState from, Func<bool> condition) => _enemyStateMachine.AddTransition(to, from, condition);
     }
 
-    public void Init(Transform target)
+    public void Init(Player target)
     {
         _target = target;
     }
@@ -59,6 +63,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        OnEnemyDying?.Invoke(this);
         Destroy(gameObject);
     }
 
@@ -67,4 +72,6 @@ public class Enemy : MonoBehaviour
     public bool DeathAnimationStatus => _animationStatus.GetDeathAnimationStatus;
 
     private void FixedUpdate() => _enemyStateMachine.Tick();
+
+    public void GiveDamage() => _target.ApplyDamage(_damage);
 }

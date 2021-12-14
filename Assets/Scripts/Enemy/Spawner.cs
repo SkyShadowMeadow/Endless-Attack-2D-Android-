@@ -7,7 +7,7 @@ using System.Collections;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private List<Wave> _enemyWaves;
-    [SerializeField] private Transform _target;
+    [SerializeField] private Player _target;
     [SerializeField] private Transform _spawnPoint;
     private int _currentWave;
     private float _durationOfTheCurrentWave;
@@ -27,29 +27,6 @@ public class Spawner : MonoBehaviour
         StartCoroutine(PerfomSpawnRoutine());
     }
 
-    private List<Wave> SortEnemyWavesByDifficulty()
-    {
-        IEnumerable<Wave> waves = _enemyWaves.OrderBy(u => u.DifficultyLevel);
-        List<Wave> sortedWaves = new List<Wave>();
-        foreach (Wave wave in waves)
-        {
-            sortedWaves.Add(wave);
-        }
-        return sortedWaves;
-    }
-    private void GetAllInformationOfTheWave()
-    {
-        _enemiesInTheCurrentWave = _enemyWaves[_currentWave].EnemyTypes;
-        _durationOfTheCurrentWave = _enemyWaves[_currentWave].DurationTime;
-        _numberOfEnemiesInTheCurrentWave = _enemyWaves[_currentWave].NumberOfEnemies;
-        _timeBetweenSpawnes = _durationOfTheCurrentWave / _numberOfEnemiesInTheCurrentWave;
-    }
-    private void InstantiateEnemy()
-    {
-            Enemy randomEnemyInWave = _enemiesInTheCurrentWave[Random.Range(0, _enemiesInTheCurrentWave.Count)];
-            Enemy currentEnemy = Instantiate(randomEnemyInWave, _spawnPoint.position, Quaternion.identity, _spawnPoint).GetComponent<Enemy>();
-            currentEnemy.Init(_target);
-    }
     IEnumerator PerfomSpawnRoutine()
     {
         GetAllInformationOfTheWave();
@@ -65,4 +42,26 @@ public class Spawner : MonoBehaviour
         yield return new WaitForSeconds(_delayBetweenWaves);
         if (_currentWave < _enemyWaves.Count) StartCoroutine(PerfomSpawnRoutine());
     }
+    
+    private void GetAllInformationOfTheWave()
+    {
+        _enemiesInTheCurrentWave = _enemyWaves[_currentWave].EnemyTypes;
+        _durationOfTheCurrentWave = _enemyWaves[_currentWave].DurationTime;
+        _numberOfEnemiesInTheCurrentWave = _enemyWaves[_currentWave].NumberOfEnemies;
+        _timeBetweenSpawnes = _durationOfTheCurrentWave / _numberOfEnemiesInTheCurrentWave;
+    }
+    private void InstantiateEnemy()
+    {
+        Enemy randomEnemyInWave = _enemiesInTheCurrentWave[Random.Range(0, _enemiesInTheCurrentWave.Count)];
+        Enemy currentEnemy = Instantiate(randomEnemyInWave, _spawnPoint.position, Quaternion.identity, _spawnPoint).GetComponent<Enemy>();
+        currentEnemy.Init(_target);
+        currentEnemy.OnEnemyDying += GiveReward;
+    }
+
+    private void GiveReward(Enemy enemy)
+    {
+        _target.AddMoney(enemy.Reward);
+        enemy.OnEnemyDying -= GiveReward;
+    }
+
 }
