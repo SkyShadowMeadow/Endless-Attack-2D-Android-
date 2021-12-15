@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Player : MonoBehaviour
     private int _currentHealth;
     private Weapon _currentWeapon;
 
-
+    public event UnityAction<int, int> HealthIsChange;
    
     private void Start()
     {
@@ -36,8 +37,9 @@ public class Player : MonoBehaviour
 
     public void ApplyDamage(int damage)
     {
-        _health -= damage;
-        if(_health <= 0)
+        _currentHealth -= damage;
+        HealthIsChange?.Invoke(_currentHealth, _health);
+        if (_currentHealth <= 0)
         {
             Debug.Log("Player is dead");
         }

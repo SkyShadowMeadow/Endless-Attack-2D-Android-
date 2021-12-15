@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Collections;
+using UnityEngine.Events;
 
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private List<Wave> _enemyWaves;
     [SerializeField] private Player _target;
     [SerializeField] private Transform _spawnPoint;
+
     private int _currentWave;
     private float _durationOfTheCurrentWave;
     private List<Enemy> _enemiesInTheCurrentWave;
     private int _numberOfEnemiesInTheCurrentWave;
     private float _timeBetweenSpawnes;
     private float _delayBetweenWaves = 5f;
+
+    public event UnityAction<int, int> EnemySpawned;
 
 
     private void Awake()
@@ -30,11 +34,14 @@ public class Spawner : MonoBehaviour
     IEnumerator PerfomSpawnRoutine()
     {
         GetAllInformationOfTheWave();
-
+        EnemySpawned?.Invoke(0, _enemiesInTheCurrentWave.Count);
         while (_numberOfEnemiesInTheCurrentWave != 0)
         {
             InstantiateEnemy();
+            int _numberOfEnemies = _numberOfEnemiesInTheCurrentWave;
             _numberOfEnemiesInTheCurrentWave--;
+            EnemySpawned?.Invoke(_numberOfEnemiesInTheCurrentWave, _numberOfEnemies);
+            Debug.Log(_numberOfEnemiesInTheCurrentWave + " " + _numberOfEnemies);
             yield return new WaitForSeconds(_timeBetweenSpawnes);
         }
 
