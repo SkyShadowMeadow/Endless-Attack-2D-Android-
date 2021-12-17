@@ -8,8 +8,9 @@ public class WaveProgressBar : Bar
 
     private void OnEnable()
     {
-        Slider.value = 0;
         _spawner.EnemySpawned += OnValueChanged;
+        Slider.value = 0;
+
     }
     private void OnDisable()
     {
