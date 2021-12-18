@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private Animator _animator;
     private int _currentHealth;
     private Weapon _currentWeapon;
+    private int _currentWeaponIndex = 0;
 
     public int Money => _money;
 
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _currentHealth = _health;
-        _currentWeapon = _weapons[0];
+        _currentWeapon = _weapons[_currentWeaponIndex];
         _animator = GetComponent<Animator>();
     }
 
@@ -50,5 +51,28 @@ public class Player : MonoBehaviour
     {
         _money -= weapon.Price;
         _weapons.Add(weapon);
+    }
+
+    public void NextWeapon()
+    {
+        if (_currentWeaponIndex + 1 > _weapons.Count - 1)
+            _currentWeaponIndex = 0;
+    
+        else
+            _currentWeaponIndex++;
+
+        ChangeWeapon(_currentWeaponIndex);
+    }
+    public void PreviousWeapon()
+    {
+        if (_currentWeaponIndex - 1 < 0)
+            _currentWeaponIndex = _weapons.Count - 1;
+        else
+            _currentWeaponIndex--;
+        ChangeWeapon(_currentWeaponIndex);
+    }
+    public void ChangeWeapon(int weaponIndex)
+    {
+        _currentWeapon = _weapons[_currentWeaponIndex];
     }
 }
